@@ -284,6 +284,20 @@ class Stockfish:
                 self.info = last_text
                 return splitted_text[1]
             last_text = text
+            
+    
+    def get_legal_moves(self) -> List[str]:
+        self._put(f"go perft 1")
+        legal_moves = []
+
+        while True:
+            line = self._read_line()
+            if line == '':
+                break
+                
+            legal_moves.append(line[:-3])
+
+        return legal_moves
 
     def is_move_correct(self, move_value: str) -> bool:
         """Checks new move.
